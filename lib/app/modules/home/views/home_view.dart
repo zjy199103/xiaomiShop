@@ -379,54 +379,60 @@ class HomeView extends GetView<HomeController> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return Container(
-                    padding: EdgeInsets.all(ScreenAdapter.width(20)),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(ScreenAdapter.width(10)),
-                          child: Image.network(
-                            HttpClient.replaceUri(
-                                controller.bestPList[index]?.pic ?? ''),
-                            fit: BoxFit.cover,
+                  return InkWell(
+                    onTap: () {
+                      Get.toNamed('/product-content',
+                          arguments: {'id': controller.bestPList[index]?.sId});
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(ScreenAdapter.width(20)),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(ScreenAdapter.width(10)),
+                            child: Image.network(
+                              HttpClient.replaceUri(
+                                  controller.bestPList[index]?.pic ?? ''),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(ScreenAdapter.width(10)),
-                          child: Text(
-                            '${controller.bestPList[index]?.title}',
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                fontSize: ScreenAdapter.fontSize(36),
-                                fontWeight: FontWeight.bold),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(ScreenAdapter.width(10)),
+                            child: Text(
+                              '${controller.bestPList[index]?.title}',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontSize: ScreenAdapter.fontSize(36),
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(ScreenAdapter.width(10)),
-                          child: Text(
-                            '${controller.bestPList[index]?.subTitle}',
-                            textAlign: TextAlign.start,
-                            style:
-                                TextStyle(fontSize: ScreenAdapter.fontSize(32)),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(ScreenAdapter.width(10)),
+                            child: Text(
+                              '${controller.bestPList[index]?.subTitle}',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontSize: ScreenAdapter.fontSize(32)),
+                            ),
                           ),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(ScreenAdapter.width(10)),
-                          child: Text(
-                            '¥${controller.bestPList[index]?.price}',
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                fontSize: ScreenAdapter.fontSize(32),
-                                fontWeight: FontWeight.bold),
-                          ),
-                        )
-                      ],
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(ScreenAdapter.width(10)),
+                            child: Text(
+                              '¥${controller.bestPList[index]?.price}',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontSize: ScreenAdapter.fontSize(32),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 },

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../services/screenAdapter.dart';
+import '../../../services/searchServices.dart';
 import '../controllers/search_controller.dart' as app_search;
 
 class SearchView extends GetView<app_search.SearchController> {
@@ -38,6 +39,8 @@ class SearchView extends GetView<app_search.SearchController> {
               onSubmitted: (value) {
                 Get.offAndToNamed('/product-list',
                     arguments: {'keyword': value});
+                // 保存搜索历史
+                SearchServices.setHistoryData(value);
               },
             ),
           ),
@@ -48,6 +51,8 @@ class SearchView extends GetView<app_search.SearchController> {
         actions: [
           TextButton(
               onPressed: () {
+                // 保存搜索历史
+                SearchServices.setHistoryData(controller.keyword);
                 //替换路由
                 Get.offAndToNamed('/product-list',
                     arguments: {'keyword': controller.keyword});
@@ -63,74 +68,95 @@ class SearchView extends GetView<app_search.SearchController> {
       body: ListView(
         padding: EdgeInsets.all(ScreenAdapter.height(20)),
         children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('搜索历史',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: ScreenAdapter.fontSize(42))),
-                const Icon(Icons.delete_outline)
-              ],
+          Obx(() => controller.historyList.isNotEmpty
+              ? Padding(
+                  padding: EdgeInsets.only(bottom: ScreenAdapter.height(20)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('搜索历史',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: ScreenAdapter.fontSize(42))),
+                      IconButton(
+                          onPressed: () {
+                            Get.bottomSheet(Container(
+                              padding: EdgeInsets.all(ScreenAdapter.width(20)),
+                              color: Colors.white,
+                              width: ScreenAdapter.width(1080),
+                              height: ScreenAdapter.height(360),
+                              child: Column(
+                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text('确定要清空搜索历史吗？',
+                                          style: TextStyle(
+                                              fontSize:
+                                                  ScreenAdapter.fontSize(36))),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      TextButton(
+                                          onPressed: () {
+                                            controller.clearHistoryData();
+                                            Get.back();
+                                          },
+                                          child: const Text('确定',
+                                              style: TextStyle(
+                                                  color: Colors.red))),
+                                      TextButton(
+                                          onPressed: () {
+                                            Get.back();
+                                          },
+                                          child: const Text('取消',
+                                              style: TextStyle(
+                                                  color: Colors.black54))),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ));
+                          },
+                          icon: const Icon(Icons.delete_outline))
+                    ],
+                  ),
+                )
+              : const SizedBox()),
+          Obx(
+            () => Wrap(
+              children: controller.historyList
+                  .map((value) => GestureDetector(
+                        onLongPress: () {
+                          Get.defaultDialog(
+                            title: 'Tips',
+                            content: const Text('确定要删除吗？'),
+                            onConfirm: () {
+                              controller.deleteHistoryData(value);
+                              Get.back();
+                            },
+                          );
+                        },
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(
+                              ScreenAdapter.width(32),
+                              ScreenAdapter.width(16),
+                              ScreenAdapter.width(32),
+                              ScreenAdapter.width(16)),
+                          margin: EdgeInsets.all(ScreenAdapter.height(16)),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(
+                                  ScreenAdapter.height(10))),
+                          child: Text(value),
+                        ),
+                      ))
+                  .toList(),
             ),
-          ),
-          Wrap(
-            children: [
-              Container(
-                padding: EdgeInsets.fromLTRB(
-                    ScreenAdapter.width(32),
-                    ScreenAdapter.width(16),
-                    ScreenAdapter.width(32),
-                    ScreenAdapter.width(16)),
-                margin: EdgeInsets.all(ScreenAdapter.height(16)),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.circular(ScreenAdapter.height(10))),
-                child: const Text('手机'),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(
-                    ScreenAdapter.width(32),
-                    ScreenAdapter.width(16),
-                    ScreenAdapter.width(32),
-                    ScreenAdapter.width(16)),
-                margin: EdgeInsets.all(ScreenAdapter.height(16)),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.circular(ScreenAdapter.height(10))),
-                child: const Text('笔记本'),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(
-                    ScreenAdapter.width(32),
-                    ScreenAdapter.width(16),
-                    ScreenAdapter.width(32),
-                    ScreenAdapter.width(16)),
-                margin: EdgeInsets.all(ScreenAdapter.height(16)),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.circular(ScreenAdapter.height(10))),
-                child: const Text('电脑'),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(
-                    ScreenAdapter.width(32),
-                    ScreenAdapter.width(16),
-                    ScreenAdapter.width(32),
-                    ScreenAdapter.width(16)),
-                margin: EdgeInsets.all(ScreenAdapter.height(16)),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.circular(ScreenAdapter.height(10))),
-                child: const Text('路由器'),
-              )
-            ],
           ),
           const SizedBox(height: 20),
           Padding(
