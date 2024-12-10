@@ -1,0 +1,96 @@
+你是 Flutter、Dart、GetX方面的专家。
+
+/lib 目录结构
+/lib
+└── app/                     # 应用主目录
+    ├── data/                # 数据层
+    │   ├── models/          # 数据模型
+    │   │   └── example_model.dart
+    │   ├── providers/       # 数据提供者，与外部系统交互
+    │   │   └── example_provider.dart
+    │   └── repositories/    # 数据仓库，封装业务逻辑
+    │       └── example_repository.dart
+    ├── modules/             # 按模块划分的业务逻辑和界面
+    │   ├── example/         # 示例模块
+    │   │   ├── bindings/    # 依赖注入绑定
+    │   │   │   └── example_binding.dart
+    │   │   ├── controllers/ # 控制器（逻辑处理）
+    │   │   │   └── example_controller.dart
+    │   │   ├── views/       # 界面层（UI）
+    │   │   │   └── example_view.dart
+    │   │   └── ...          # 其他模块相关资源
+    │   └── ...              # 更多模块
+    ├── routes/              # 路由层
+    │   └── app_routes.dart  # 定义应用内所有页面的路由
+    ├── themes/              # 样式和主题
+    │   └── app_theme.dart   # 全局样式
+    ├── utils/               # 工具类和辅助函数
+    │   ├── constants.dart   # 全局常量
+    │   ├── helpers.dart     # 通用辅助函数
+    │   └── ...
+    ├── widgets/             # 公共可复用组件
+    │   └── custom_button.dart
+    └── main.dart            # 应用入口
+
+通用目录说明
+1. data/**：
+   - models/：定义数据模型，例如 JSON 和对象之间的转换。
+   - providers/：处理 API 调用或本地存储，直接与外部系统交互。
+   - repositories/：数据仓库，封装复杂的业务逻辑，统一数据操作。
+2. modules/**：
+   - 每个模块按独立的业务功能划分，包含 bindings/、controllers/ 和 views/。
+   - 示例模块结构：
+     - bindings/：定义依赖注入的绑定。
+     - controllers/：管理 UI 状态和业务逻辑。
+     - views/：定义界面组件。
+3. routes/**：
+   - 集中管理项目内的页面导航。
+   - app_routes.dart：定义应用的路由表，例如页面路径和参数传递。
+4. themes/**：
+   - 统一定义全局主题和样式，例如颜色、字体。
+5. utils/**：
+   - 存放项目中常用的工具类，例如日期格式化、字符串处理。
+6. widgets/**：
+   - 定义可复用的通用组件，例如按钮、对话框。
+7. main.dart：
+   - 应用的入口文件，初始化依赖和运行应用。
+
+代码风格与结构
+- 编写简洁高效的源代码。
+- 确保代码可读性高，易于维护，并提供准确的示例。
+- 避免代码重复：将组件或函数模块化为可重用的部分。
+- 使用具有描述性的变量名：如 isLoading 和 hasError 这样包含助动词的命名。
+
+命名规范
+- 目录与文件：使用蛇形命名法（例如：auth_wizard.dart）。
+- 变量名与函数名：使用驼峰命名法（例如：lowerCamelCase）。
+- 类名与类型名：使用帕斯卡命名法（例如：UpperCamelCase）。
+- 组件命名：使用帕斯卡命名法，并与文件名一致（例如：AuthWizard 组件应位于 auth_wizard.dart 中）。
+
+导入规则
+- 优先导入以 dart: 开头的库（导入前缀使用 lowercase_with_underscores）。
+- 接着导入第三方包（以 package: 开头）。
+- 最后导入相对路径或项目内部文件。
+
+Dart 的使用
+- 利用类型安全：所有代码应使用静态类型，并尽量利用类型推断。
+
+UI 和样式
+- 使用 Material 组件。
+- 统一主题：使用 ThemeData 来确保样式一致性。
+
+性能优化
+- 当状态不可变时优先使用 StatelessWidget。
+- 利用 const 构造函数：当组件是不可变的，使用 const 来优化构建性能。
+
+状态管理
+- 使用 GetX 实现高效的状态管理。
+
+软件架构
+- 采用 MVC（Model View Controller）架构模式。
+
+主要规则
+- 为提升代码可读性，避免行长度超过 80 个字符。
+- 在所有流程控制结构（如 if、for、while 等）中使用大括号 {}。
+- 代码中积极使用注释，以帮助理解和维护代码。
+- 使用单引号，不使用双引号，保持字符串字面量的一致性以提升可读性。
