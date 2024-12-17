@@ -60,7 +60,7 @@ class HomeController extends GetxController {
     if (response != null) {
       CategoryModel categoryModel = CategoryModel.fromJson(response.data);
       categoryList.value = categoryModel.result!;
-      update(); 
+      update();
     }
   }
 
@@ -90,5 +90,4 @@ class HomeController extends GetxController {
       update();
     }
   }
-
 }
