@@ -17,6 +17,7 @@ class TabsView extends GetView<TabsController> {
             },
           ),
           bottomNavigationBar: BottomNavigationBar(
+              backgroundColor: Colors.white,
               fixedColor: Colors.red, //选中的颜色
               currentIndex: controller.currentIndex.value, //当前选中页面
               type: BottomNavigationBarType.fixed, //底部有4个或者以上
