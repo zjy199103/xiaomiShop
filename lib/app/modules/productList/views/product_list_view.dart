@@ -27,93 +27,103 @@ class ProductListView extends GetView<ProductListController> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10)),
                 //行
-                child: Row(
-                  children: [
-                    //左侧
-                    Container(
-                      padding: EdgeInsets.all(ScreenAdapter.width(60)),
-                      width: ScreenAdapter.width(400),
-                      height: ScreenAdapter.height(460),
-                      child: Image.network(
-                          "${HttpClient.replaceUri(controller.plistList[index]?.sPic ?? '')}",
-                          fit: BoxFit.fitHeight),
-                    ),
-                    //右侧
-                    Expanded(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding:
-                              EdgeInsets.only(bottom: ScreenAdapter.height(20)),
-                          child: Text(controller.plistList[index]?.title ?? '',
-                              style: TextStyle(
-                                  fontSize: ScreenAdapter.fontSize(42),
-                                  fontWeight: FontWeight.bold)),
-                        ),
-                        Padding(
-                          padding:
-                              EdgeInsets.only(bottom: ScreenAdapter.height(20)),
-                          child:
-                              Text(controller.plistList[index]?.subTitle ?? '',
-                                  style: TextStyle(
-                                    fontSize: ScreenAdapter.fontSize(34),
-                                  )),
-                        ),
-                        Container(
-                          padding:
-                              EdgeInsets.only(bottom: ScreenAdapter.height(20)),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                  child: Column(
-                                children: [
-                                  Text("CUP",
-                                      style: TextStyle(
-                                          fontSize: ScreenAdapter.fontSize(34),
-                                          fontWeight: FontWeight.bold)),
-                                  Text("Helio G25",
-                                      style: TextStyle(
-                                        fontSize: ScreenAdapter.fontSize(34),
-                                      ))
-                                ],
-                              )),
-                              Expanded(
-                                  child: Column(
-                                children: [
-                                  Text("高清拍摄",
-                                      style: TextStyle(
-                                          fontSize: ScreenAdapter.fontSize(34),
-                                          fontWeight: FontWeight.bold)),
-                                  Text("1300万像素",
-                                      style: TextStyle(
-                                        fontSize: ScreenAdapter.fontSize(34),
-                                      ))
-                                ],
-                              )),
-                              Expanded(
-                                  child: Column(
-                                children: [
-                                  Text("超大屏",
-                                      style: TextStyle(
-                                          fontSize: ScreenAdapter.fontSize(34),
-                                          fontWeight: FontWeight.bold)),
-                                  Text("6.1寸",
-                                      style: TextStyle(
-                                        fontSize: ScreenAdapter.fontSize(34),
-                                      ))
-                                ],
-                              ))
-                            ],
+                child: GestureDetector(
+                  onTap: () {
+                    Get.toNamed('/product-content',
+                        arguments: {'id': controller.plistList[index]?.sId});
+                  },
+                  child: Row(
+                    children: [
+                      //左侧
+                      Container(
+                        padding: EdgeInsets.all(ScreenAdapter.width(60)),
+                        width: ScreenAdapter.width(400),
+                        height: ScreenAdapter.height(460),
+                        child: Image.network(
+                            "${HttpClient.replaceUri(controller.plistList[index]?.sPic ?? '')}",
+                            fit: BoxFit.fitHeight),
+                      ),
+                      //右侧
+                      Expanded(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                bottom: ScreenAdapter.height(20)),
+                            child: Text(
+                                controller.plistList[index]?.title ?? '',
+                                style: TextStyle(
+                                    fontSize: ScreenAdapter.fontSize(42),
+                                    fontWeight: FontWeight.bold)),
                           ),
-                        ),
-                        Text("￥${controller.plistList[index]?.price}起",
-                            style: TextStyle(
-                                fontSize: ScreenAdapter.fontSize(38),
-                                fontWeight: FontWeight.bold))
-                      ],
-                    ))
-                  ],
+                          Padding(
+                            padding: EdgeInsets.only(
+                                bottom: ScreenAdapter.height(20)),
+                            child: Text(
+                                controller.plistList[index]?.subTitle ?? '',
+                                style: TextStyle(
+                                  fontSize: ScreenAdapter.fontSize(34),
+                                )),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(
+                                bottom: ScreenAdapter.height(20)),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: Column(
+                                  children: [
+                                    Text("CUP",
+                                        style: TextStyle(
+                                            fontSize:
+                                                ScreenAdapter.fontSize(34),
+                                            fontWeight: FontWeight.bold)),
+                                    Text("Helio G25",
+                                        style: TextStyle(
+                                          fontSize: ScreenAdapter.fontSize(34),
+                                        ))
+                                  ],
+                                )),
+                                Expanded(
+                                    child: Column(
+                                  children: [
+                                    Text("高清拍摄",
+                                        style: TextStyle(
+                                            fontSize:
+                                                ScreenAdapter.fontSize(34),
+                                            fontWeight: FontWeight.bold)),
+                                    Text("1300万像素",
+                                        style: TextStyle(
+                                          fontSize: ScreenAdapter.fontSize(34),
+                                        ))
+                                  ],
+                                )),
+                                Expanded(
+                                    child: Column(
+                                  children: [
+                                    Text("超大屏",
+                                        style: TextStyle(
+                                            fontSize:
+                                                ScreenAdapter.fontSize(34),
+                                            fontWeight: FontWeight.bold)),
+                                    Text("6.1寸",
+                                        style: TextStyle(
+                                          fontSize: ScreenAdapter.fontSize(34),
+                                        ))
+                                  ],
+                                ))
+                              ],
+                            ),
+                          ),
+                          Text("￥${controller.plistList[index]?.price}起",
+                              style: TextStyle(
+                                  fontSize: ScreenAdapter.fontSize(38),
+                                  fontWeight: FontWeight.bold))
+                        ],
+                      ))
+                    ],
+                  ),
                 ),
               ),
               (index == controller.plistList.length - 1)
