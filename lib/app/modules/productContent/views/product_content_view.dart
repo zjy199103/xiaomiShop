@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:async';
+// import 'dart:async';
 import '../controllers/product_content_controller.dart';
 import '../../../services/screenAdapter.dart';
 import 'first_page_view.dart';

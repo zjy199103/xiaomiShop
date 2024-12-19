@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
 
 import '../../../services/screenAdapter.dart';
@@ -266,8 +266,9 @@ class SearchView extends GetView<app_search.SearchController> {
                             width: ScreenAdapter.width(120),
                             alignment: Alignment.center,
                             padding: EdgeInsets.all(ScreenAdapter.width(10)),
-                            child: Image.network(
-                                'https://www.itying.com/images/shouji.png',
+                            child: CachedNetworkImage(
+                                imageUrl:
+                                    'https://www.itying.com/images/shouji.png',
                                 fit: BoxFit.fitHeight),
                           ),
                           Expanded(

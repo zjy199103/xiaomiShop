@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
 import 'package:xiaomi/app/services/https_client.dart';
 
@@ -78,8 +78,8 @@ class CategoryView extends GetView<CategoryController> {
                       Container(
                         alignment: Alignment.center,
                         width: double.infinity,
-                        child: Image.network(
-                          HttpClient.replaceUri(
+                        child: CachedNetworkImage(
+                          imageUrl: HttpClient.replaceUri(
                               controller.rightCategoryList[index]?.pic ?? ''),
                           fit: BoxFit.fitHeight,
                         ),

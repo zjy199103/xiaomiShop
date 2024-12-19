@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:xiaomi/app/services/https_client.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../controllers/home_controller.dart';
 import '../../../services/keepAliveWrapper.dart';
@@ -82,8 +83,9 @@ class HomeView extends GetView<HomeController> {
       height: ScreenAdapter.height(682),
       child: Obx(() => Swiper(
             itemBuilder: (BuildContext context, int index) {
-              return Image.network(
-                HttpClient.replaceUri(controller.swiperList[index]?.pic ?? ''),
+              return CachedNetworkImage(
+                imageUrl: HttpClient.replaceUri(
+                    controller.swiperList[index]?.pic ?? ''),
                 fit: BoxFit.fill,
               );
             },
@@ -129,8 +131,8 @@ class HomeView extends GetView<HomeController> {
                       alignment: Alignment.center,
                       width: ScreenAdapter.width(136),
                       height: ScreenAdapter.height(136),
-                      child: Image.network(
-                          HttpClient.replaceUri(
+                      child: CachedNetworkImage(
+                          imageUrl: HttpClient.replaceUri(
                               controller.categoryList[index * 10 + i]?.pic ??
                                   ''),
                           fit: BoxFit.fitHeight),
@@ -229,8 +231,8 @@ class HomeView extends GetView<HomeController> {
                       height: ScreenAdapter.height(738),
                       child: Obx(() => Swiper(
                             itemBuilder: (BuildContext context, int index) {
-                              return Image.network(
-                                HttpClient.replaceUri(controller
+                              return CachedNetworkImage(
+                                imageUrl: HttpClient.replaceUri(controller
                                         .bestSellingSwiperList[index]?.pic ??
                                     ''),
                                 fit: BoxFit.fill,
@@ -323,8 +325,8 @@ class HomeView extends GetView<HomeController> {
                                         child: Padding(
                                           padding: EdgeInsets.all(
                                               ScreenAdapter.height(8)),
-                                          child: Image.network(
-                                              HttpClient.replaceUri(
+                                          child: CachedNetworkImage(
+                                              imageUrl: HttpClient.replaceUri(
                                                   value?.pic ?? ''),
                                               fit: BoxFit.cover),
                                         ),
@@ -393,8 +395,8 @@ class HomeView extends GetView<HomeController> {
                         children: [
                           Container(
                             padding: EdgeInsets.all(ScreenAdapter.width(10)),
-                            child: Image.network(
-                              HttpClient.replaceUri(
+                            child: CachedNetworkImage(
+                              imageUrl: HttpClient.replaceUri(
                                   controller.bestPList[index]?.pic ?? ''),
                               fit: BoxFit.cover,
                             ),

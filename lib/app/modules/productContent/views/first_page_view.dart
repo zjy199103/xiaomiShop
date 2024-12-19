@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
+
 import '../../../services/screenAdapter.dart';
 import '../controllers/product_content_controller.dart';
 import '../../../services/https_client.dart';
@@ -21,8 +22,8 @@ class FirstPageView extends GetView {
               children: [
                 AspectRatio(
                   aspectRatio: 1 / 1,
-                  child: Image.network(
-                    HttpClient.replaceUri(
+                  child: CachedNetworkImage(
+                    imageUrl: HttpClient.replaceUri(
                         controller.pContentModel.value.pic ?? ''),
                     fit: BoxFit.cover,
                   ),

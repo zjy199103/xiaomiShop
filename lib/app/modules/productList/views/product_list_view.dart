@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
 
 import '../../../services/screenAdapter.dart';
@@ -39,8 +39,9 @@ class ProductListView extends GetView<ProductListController> {
                         padding: EdgeInsets.all(ScreenAdapter.width(60)),
                         width: ScreenAdapter.width(400),
                         height: ScreenAdapter.height(460),
-                        child: Image.network(
-                            "${HttpClient.replaceUri(controller.plistList[index]?.sPic ?? '')}",
+                        child: CachedNetworkImage(
+                            imageUrl: HttpClient.replaceUri(
+                                controller.plistList[index]?.sPic ?? ''),
                             fit: BoxFit.fitHeight),
                       ),
                       //右侧
