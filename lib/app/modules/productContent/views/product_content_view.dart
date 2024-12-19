@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
+import 'dart:async';
 import '../controllers/product_content_controller.dart';
 import '../../../services/screenAdapter.dart';
 import 'first_page_view.dart';
@@ -104,20 +103,39 @@ class ProductContentView extends GetView<ProductContentController> {
                           controller.changeSelectedIndex(v['id']);
                           // 滚动到对应的key
                           if (v['id'] == 1) {
-                            Scrollable.ensureVisible(
-                                controller.gk1.currentContext as BuildContext,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut);
+                            // Scrollable.ensureVisible(
+                            //     controller.gk1.currentContext as BuildContext,
+                            //     duration: const Duration(milliseconds: 100),
+                            //     curve: Curves.easeInOut);
+                            controller.scrollController.jumpTo(0);
                           } else if (v['id'] == 2) {
-                            Scrollable.ensureVisible(
-                                controller.gk2.currentContext as BuildContext,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut);
+                            // Scrollable.ensureVisible(
+                            //     controller.gk2.currentContext as BuildContext,
+                            //     duration: const Duration(milliseconds: 100),
+                            //     curve: Curves.easeInOut);
+                            // Timer.periodic(const Duration(milliseconds: 101),
+                            //     (timer) {
+                            //   controller.scrollController.jumpTo(
+                            //       controller.gk2Position -
+                            //           ScreenAdapter.height(110));
+                            //   timer.cancel();
+                            // });
+                            controller.scrollController
+                                .jumpTo(controller.gk2Position);
                           } else if (v['id'] == 3) {
-                            Scrollable.ensureVisible(
-                                controller.gk3.currentContext as BuildContext,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut);
+                            // Scrollable.ensureVisible(
+                            //     controller.gk3.currentContext as BuildContext,
+                            //     duration: const Duration(milliseconds: 100),
+                            //     curve: Curves.easeInOut);
+                            // Timer.periodic(const Duration(milliseconds: 101),
+                            //     (timer) {
+                            //   controller.scrollController.jumpTo(
+                            //       controller.scrollController.position.pixels -
+                            //           ScreenAdapter.height(110));
+                            //   timer.cancel();
+                            // });
+                            controller.scrollController
+                                .jumpTo(controller.gk3Position);
                           }
                         },
                         child: Column(
@@ -190,27 +208,24 @@ class ProductContentView extends GetView<ProductContentController> {
 
   Widget _subHeader() {
     return Row(
-      children: [
-        Expanded(
-            child: Container(
-          color: Colors.white,
-          height: ScreenAdapter.height(120),
-          alignment: Alignment.center,
-          child: const Text(
-            '商品介绍',
-            style: TextStyle(color: Colors.red),
-          ),
-        )),
-        Expanded(
-            child: Container(
-          color: Colors.white,
-          height: ScreenAdapter.height(120),
-          alignment: Alignment.center,
-          child: const Text(
-            '规格参数',
-          ),
-        ))
-      ],
+      children: controller.subTabsList.map((e) {
+        return Expanded(
+            child: InkWell(
+          onTap: () {
+            controller.changeSelectedSubIndex(e['id']);
+          },
+          child: Obx(() => Container(
+                color: Colors.white,
+                height: ScreenAdapter.height(120),
+                alignment: Alignment.center,
+                child: Text(e['title'],
+                    style: TextStyle(
+                        color: controller.selectSubIndex.value == e['id']
+                            ? Colors.red
+                            : Colors.black87)),
+              )),
+        ));
+      }).toList(),
     );
   }
 

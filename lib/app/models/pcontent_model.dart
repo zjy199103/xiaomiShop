@@ -34,6 +34,7 @@ class PcontentItemModel {
   List<PcontentAttrModel>? attr;
   String? subTitle;
   int? salecount;
+  String? specs;
 
   PcontentItemModel(
       {this.sId,
@@ -50,7 +51,8 @@ class PcontentItemModel {
       this.cname,
       this.attr,
       this.subTitle,
-      this.salecount});
+      this.salecount,
+      this.specs});
 
   PcontentItemModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -73,6 +75,7 @@ class PcontentItemModel {
     }
     subTitle = json['sub_title'];
     salecount = json['salecount'];
+    specs = json['specs'];
   }
 
   Map<String, dynamic> toJson() {
@@ -94,6 +97,7 @@ class PcontentItemModel {
     }
     data['sub_title'] = subTitle;
     data['salecount'] = salecount;
+    data['specs'] = specs;
     return data;
   }
 }
